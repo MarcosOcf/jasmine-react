@@ -16,39 +16,39 @@ describe("jasmineReact", function(){
         }
       });
 
-      spyOn(React, "render").andCallThrough();
+      spyOn(ReactDOM, "render").andCallThrough();
     });
 
-    it("should call React.render with the passed in component", function(){
+    it("should call ReactDOM.render with the passed in component", function(){
       jasmineReact.render(<FooKlass foo="bar" />, document.getElementById("jasmine_content"));
 
-      var renderArgs = React.render.mostRecentCall.args[0];
+      var renderArgs = ReactDOM.render.mostRecentCall.args[0];
 
       expect(renderArgs.props.foo).toBe("bar");
     });
 
-    it("should call React.render with the passed in container", function(){
+    it("should call ReactDOM.render with the passed in container", function(){
       var container = document.getElementById("jasmine_content");
       jasmineReact.render(<FooKlass />, container);
 
-      expect(React.render).toHaveBeenCalledWith(jasmine.any(Object), container);
+      expect(ReactDOM.render).toHaveBeenCalledWith(jasmine.any(Object), container);
     });
 
-    it("should call React.render with #jasmine_content container if no container is passed in", function(){
+    it("should call ReactDOM.render with #jasmine_content container if no container is passed in", function(){
       jasmineReact.render(<FooKlass />);
 
-      expect(React.render).toHaveBeenCalledWith(jasmine.any(Object), document.getElementById("jasmine_content"));
+      expect(ReactDOM.render).toHaveBeenCalledWith(jasmine.any(Object), document.getElementById("jasmine_content"));
     });
 
-    it("should call React.render with a callback if one is passed in", function(){
+    it("should call ReactDOM.render with a callback if one is passed in", function(){
       var fakeCallbackSpy = jasmine.createSpy("fakeCallback");
 
       jasmineReact.render(<FooKlass />, document.getElementById("jasmine_content"), fakeCallbackSpy);
 
-      expect(React.render).toHaveBeenCalledWith(jasmine.any(Object), jasmine.any(Object), fakeCallbackSpy);
+      expect(ReactDOM.render).toHaveBeenCalledWith(jasmine.any(Object), jasmine.any(Object), fakeCallbackSpy);
     });
 
-    it("should return the return value of React.render", function(){
+    it("should return the return value of ReactDOM.render", function(){
       var returnValue = jasmineReact.render(<FooKlass baz="bat" />, document.getElementById("jasmine_content"));
 
       expect(returnValue.props.baz).toBe("bat");
@@ -150,8 +150,8 @@ describe("jasmineReact", function(){
 
       var foo = jasmineReact.render(<KlassWithARenderFunction />);
 
-      expect(foo.getDOMNode().className).not.toBe("real-value");
-      expect(foo.getDOMNode().className).toBe("fake-value");
+      expect(ReactDOM.findDOMNode(foo).className).not.toBe("real-value");
+      expect(ReactDOM.findDOMNode(foo).className).toBe("fake-value");
     });
 
     it("should allow a react class to have a function which was added via 'jasmineReact.addMethodToClass' be spied on", function(){
@@ -389,7 +389,7 @@ describe("jasmineReact", function(){
       it("should not unmount the component", function(){
         var barComponent = jasmineReact.render(<BarKlass />);
 
-        React.unmountComponentAtNode(barComponent.getDOMNode().parentNode);
+        ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(barComponent).parentNode);
 
         expect(componentWillUnmountSpy.callCount).toBe(1);
 
@@ -403,7 +403,7 @@ describe("jasmineReact", function(){
       it("should return false", function(){
         var barComponent = jasmineReact.render(<BarKlass />);
 
-        React.unmountComponentAtNode(barComponent.getDOMNode().parentNode);
+        ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(barComponent).parentNode);
 
         var returnValue;
 

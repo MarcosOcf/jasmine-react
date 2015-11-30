@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var spies = [],
   componentStubs = [],
@@ -11,8 +12,8 @@ var jasmineReact = {
     }
 
     var comp = (typeof callback === "undefined") ?
-      React.render(component, container) :
-      React.render(component, container, callback);
+      ReactDOM.render(component, container) :
+      ReactDOM.render(component, container, callback);
 
     // keep track of the components we render, so we can unmount them later
     renderedComponents.push(comp);
@@ -44,8 +45,9 @@ var jasmineReact = {
   },
 
   classComponentConstructor: function(klass){
-    return klass.type ||                // React 0.11.1
-           klass.componentConstructor;  // React 0.8.0
+    return (klass.prototype && klass.prototype.constructor) ||    // React 0.14.3
+           klass.type ||                     // React 0.11.1
+           klass.componentConstructor;       // React 0.8.0
   },
 
   classPrototype: function(klass){
@@ -109,7 +111,7 @@ var jasmineReact = {
 
   unmountComponent: function(component){
     if(component.isMounted()){
-      return React.unmountComponentAtNode(component.getDOMNode().parentNode);
+      return ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(component).parentNode);
     } else {
       return false;
     }
