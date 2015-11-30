@@ -1,12 +1,12 @@
 {
-  "name": "jasmine-react-helpers",
-  "version": "0.2.1",
+  "name": "jasmine-react-helpers-hotfix-0.14",
+  "version": "0.2.2",
   "description": "a small suite of helper functions to make unit testing React.js components painless.",
   "main": "src/jasmine-react.js",
-  "author": "Tom Hallett",
+  "author": ["Tom Hallett", "Marcos Couto"],
   "repository": {
     "type": "git",
-    "url": "git://github.com/tommyh/jasmine-react.git"
+    "url": "git://github.com/MarcosOcf/jasmine-react.git"
   },
   "devDependencies": {
     "browserify": "^4.2.3",
