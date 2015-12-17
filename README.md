@@ -4,6 +4,12 @@
 
 React.js' architecture is based on the idea that mutation is hard, so your React.js components should represent a state machine which can represent your UI under any state.  This is an extremely powerful idea and means that you will often compose components inside of other components.  While this is great for code reuse, it makes isolating one component for a unit test slightly more difficult.  React.js will also provide some very helpful features (like auto binding), which make it more difficult to get under the covers and stub things out.  jasmine-react aims to solve these testing issues.
 
+# Installation
+
+```
+npm install jasmine-react-helpers-hotfix-0.14 --save-dev
+```
+
 # Synopsis
 
 Here's an overview of how jasmineReact can be used:
@@ -224,16 +230,6 @@ jasmineReact.getDefaultContainer = function(){
   return document.getElementById("spec-dom");
 };
 ```
-
-# Installation
-
-```
-npm install jasmine-react-helpers --save-dev
-```
-
-Bower: TODO
-
-Script Tag: TODO
 
 
 # Testing
